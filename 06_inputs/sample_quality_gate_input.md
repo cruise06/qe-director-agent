@@ -1,37 +1,52 @@
 # Sample Quality Gate Input
 
 ## Project name
-TBD
+AI Assistant Web
 
 ## Release name
-TBD
+v0.9.3
 
 ## Planned release time
-TBD
+2026-03-25 20:00
 
 ## Change scope
-TBD
+- Added new conversation entry
+- Updated login flow
+- Fixed message retry issue
+- Refactored notification module
 
 ## Known risks
-TBD
+- Notification module changed in multiple files
+- Login flow has limited regression coverage on edge cases
 
 ## Defect status
-TBD
+- P0: 0
+- P1: 0
+- P2: 2 open
+- P3: 3 open
 
 ## Test coverage
-TBD
+- Core flow covered
+- Partial regression on login edge cases
+- Notification regression completed for main path only
 
 ## Regression result
-TBD
+- Main regression passed
+- No blocker found
+- Two medium-risk defects still open
 
 ## Monitoring readiness
-TBD
+- Core API monitoring ready
+- Login error rate dashboard ready
+- Notification success-rate monitoring not fully verified
 
 ## Rollback plan
-TBD
+- Application rollback available
+- Database rollback not required for this release
 
 ## Current blockers
-TBD
+- No blocker issue
+- Need confirmation for notification monitoring before release
 
 ## Expected output
 Quality gate review conclusion with actions and priority.
