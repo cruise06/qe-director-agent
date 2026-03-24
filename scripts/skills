@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Supported skills:"
+echo "  quality_gate"
+echo "  pilot_diagnosis"
+echo "  incident_review"
+echo "  weekly_report"
+echo "  ai_radar"
