@@ -7,7 +7,7 @@ from datetime import datetime
 from collections import Counter, defaultdict
 
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title="QE Director Agent Web")
@@ -118,6 +118,10 @@ def handle_runtime_failure(request: Request, result: subprocess.CompletedProcess
     if "401" in detail or "AuthenticationError" in detail or "Invalid Authentication" in detail:
         return render_run_error(request, "模型认证失败", "当前模型认证信息不可用，请检查 KIMI_API_KEY 配置。", "请先检查 .env 或运行环境中的 KIMI_API_KEY 是否有效。")
     return render_run_error(request, "运行失败", "当前任务执行失败，请稍后重试或联系维护者排查。", detail[-1200:] if detail else "")
+
+@app.get("/favicon.ico")
+def favicon():
+    return FileResponse(ROOT / "web" / "static" / "favicon.png", media_type="image/png")
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
