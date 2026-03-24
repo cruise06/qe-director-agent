@@ -1,0 +1,59 @@
+#!/bin/bash
+set -e
+
+echo "QE Director Agent Doctor"
+echo "------------------------"
+
+if [ -d ".venv" ]; then
+  echo "[OK] .venv exists"
+else
+  echo "[WARN] .venv not found"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  echo "[OK] uv is installed"
+else
+  echo "[FAIL] uv is not installed"
+fi
+
+if [ -n "${KIMI_API_KEY:-}" ]; then
+  echo "[OK] KIMI_API_KEY is set"
+else
+  echo "[FAIL] KIMI_API_KEY is missing"
+fi
+
+if [ -f "08_runtime/run_agent.py" ]; then
+  echo "[OK] unified runner exists"
+else
+  echo "[FAIL] unified runner missing"
+fi
+
+if [ -x "scripts/agent" ]; then
+  echo "[OK] scripts/agent is executable"
+else
+  echo "[FAIL] scripts/agent is missing or not executable"
+fi
+
+if [ -x "scripts/runquick" ]; then
+  echo "[OK] scripts/runquick is executable"
+else
+  echo "[FAIL] scripts/runquick is missing or not executable"
+fi
+
+if [ -x "scripts/newcase" ]; then
+  echo "[OK] scripts/newcase is executable"
+else
+  echo "[FAIL] scripts/newcase is missing or not executable"
+fi
+
+if [ -x "scripts/showresult" ]; then
+  echo "[OK] scripts/showresult is executable"
+else
+  echo "[FAIL] scripts/showresult is missing or not executable"
+fi
+
+if [ -x "scripts/skills" ]; then
+  echo "[OK] scripts/skills is executable"
+else
+  echo "[FAIL] scripts/skills is missing or not executable"
+fi
