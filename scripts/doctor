@@ -17,7 +17,9 @@ else
 fi
 
 if [ -n "${KIMI_API_KEY:-}" ]; then
-  echo "[OK] KIMI_API_KEY is set"
+  echo "[OK] KIMI_API_KEY is set in shell"
+elif [ -f ".env" ] && grep -q '^KIMI_API_KEY=' .env; then
+  echo "[OK] KIMI_API_KEY is configured in .env"
 else
   echo "[FAIL] KIMI_API_KEY is missing"
 fi
@@ -56,4 +58,10 @@ if [ -x "scripts/skills" ]; then
   echo "[OK] scripts/skills is executable"
 else
   echo "[FAIL] scripts/skills is missing or not executable"
+fi
+
+if [ -x "scripts/bootstrap" ]; then
+  echo "[OK] scripts/bootstrap is executable"
+else
+  echo "[FAIL] scripts/bootstrap is missing or not executable"
 fi
