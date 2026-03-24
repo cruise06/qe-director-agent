@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+echo "QE Director Agent Bootstrap"
+echo "---------------------------"
+
+if ! command -v uv >/dev/null 2>&1; then
+  echo "[FAIL] uv is not installed"
+  exit 1
+fi
+
+if [ ! -f "pyproject.toml" ]; then
+  echo "[FAIL] pyproject.toml not found"
+  exit 1
+fi
+
+echo "[STEP] syncing project environment"
+uv sync
+
+echo ""
+echo "[STEP] running doctor"
+./scripts/doctor
+
+echo ""
+echo "[NEXT]"
+echo "1. export KIMI_API_KEY='your_key'"
+echo "2. ./scripts/skills"
+echo "3. ./scripts/newcase quality_gate my_case"
+echo "4. edit 06_inputs/my_case.md"
+echo "5. ./scripts/runquick quality_gate my_case"
