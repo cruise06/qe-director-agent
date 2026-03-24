@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+if [ "$#" -ne 3 ]; then
+  echo "Usage: ./scripts/runcase <skill> <input_file> <output_file>"
+  exit 1
+fi
+
+SKILL="$1"
+INPUT_FILE="$2"
+OUTPUT_FILE="$3"
+
+./scripts/agent --skill "$SKILL" --input "$INPUT_FILE" --output "$OUTPUT_FILE"
+echo ""
+echo "===== RESULT ====="
+./scripts/showresult "$OUTPUT_FILE"
