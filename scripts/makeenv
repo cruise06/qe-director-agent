@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+if [ -f ".env" ]; then
+  echo ".env already exists"
+  exit 0
+fi
+
+if [ ! -f ".env.example" ]; then
+  echo ".env.example not found"
+  exit 1
+fi
+
+cp .env.example .env
+echo "CREATED: .env"
+echo "Please edit .env and set your real KIMI_API_KEY"
