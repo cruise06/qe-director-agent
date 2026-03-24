@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+if [ "$#" -ne 2 ]; then
+  echo "Usage: ./scripts/runquick <skill> <case_name>"
+  echo "Example: ./scripts/runquick quality_gate real_case_quality_gate_002"
+  exit 1
+fi
+
+SKILL="$1"
+CASE_NAME="$2"
+
+INPUT_FILE="06_inputs/${CASE_NAME}.md"
+OUTPUT_FILE="03_templates/${CASE_NAME}_result.md"
+
+if [ ! -f "$INPUT_FILE" ]; then
+  echo "Input file not found: $INPUT_FILE"
+  exit 1
+fi
+
+./scripts/runcase "$SKILL" "$INPUT_FILE" "$OUTPUT_FILE"
