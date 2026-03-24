@@ -1,0 +1,8 @@
+[project]
+name = "qe-director-agent"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.86.0",
+    "openai>=2.29.0",
+]
