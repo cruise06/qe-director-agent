@@ -16,10 +16,19 @@ SKILL_MAP = {
 def main():
     parser = argparse.ArgumentParser(description="QE Director Agent unified runner")
     parser.add_argument("--skill", required=True, choices=SKILL_MAP.keys())
+    parser.add_argument("--input", required=False, help="Path to input markdown file")
+    parser.add_argument("--output", required=False, help="Path to output markdown file")
     args = parser.parse_args()
 
     script = SKILL_MAP[args.skill]
-    result = subprocess.run([sys.executable, str(script)])
+    cmd = [sys.executable, str(script)]
+
+    if args.input:
+        cmd.extend(["--input", args.input])
+    if args.output:
+        cmd.extend(["--output", args.output])
+
+    result = subprocess.run(cmd)
     raise SystemExit(result.returncode)
 
 if __name__ == "__main__":
