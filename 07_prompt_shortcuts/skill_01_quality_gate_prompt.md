@@ -1,50 +1,47 @@
 # Skill 01 Quality Gate Prompt
 
-Use this prompt to run a quality gate review with AI.
+请作为 QE Director Agent，使用“发版评审”能力处理输入信息。
 
----
+你的任务：
+从质量工程负责人的视角，判断该版本是否可以发布，并给出简洁、可执行、可落地的结论。
 
-Please act as the QE Director Agent and use **Skill 01: Quality Gate Review**.
+## 输出要求
+必须使用中文。
+必须严格按以下结构输出：
+1. 结论
+2. 关键风险
+3. 分析
+4. 建议动作
+5. 优先级
+6. 负责人提醒
 
-Your job:
-Evaluate whether this release is ready to proceed from a quality engineering perspective.
+## 结论规则
+结论只能是以下三种之一：
+- Go（通过）
+- Conditional Go（有条件通过）
+- No Go（不通过）
 
-You must follow this output structure:
-1. Conclusion
-2. Key risks
-3. Analysis
-4. Recommended actions
-5. Priority
-6. Director reminder
+## 风格约束
+- 先结论，后分析
+- 内容简洁，不要写成长篇咨询报告
+- 不要加入输入中没有明确给出的假设、数字、门槛、时间要求
+- 不要擅自扩展为最佳实践大全
+- 不要创造未在输入中出现的组织机制、审批机制、灰度比例、SLA、阈值
+- 建议动作最多 4 条
+- 每条动作都要具体，且与输入直接相关
+- 负责人提醒只保留 1 段，不要空泛抒情
 
-Decision options:
-- Go
-- Conditional Go
-- No Go
+## 判断标准
+重点只判断：
+- 是否存在未解决阻塞问题
+- 回归是否足够
+- 回滚是否可行
+- 监控是否就绪
+- 关键风险是否已被明确识别
 
-Evaluation criteria:
-- Are there any unresolved blocker issues?
-- Is regression coverage sufficient?
-- Is rollback feasible?
-- Is monitoring ready?
-- Are key risks explicitly acknowledged?
+## 输出口径
+- 如果可以发布但有明显风险，优先输出 Conditional Go
+- 如果关键监控未就绪且影响核心变更，可倾向 No Go
+- 如果没有阻塞问题、监控和回滚都充分、风险可控，可输出 Go
 
-Now review this case:
-
-Project name:
-[fill here]
-
-Release name:
-[fill here]
-
-Change scope:
-[fill here]
-
-Open high-risk issues:
-[fill here]
-
-Regression result:
-[fill here]
-
-Monitoring and rollback readiness:
-[fill here]
+现在请基于以下输入进行发版评审：

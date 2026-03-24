@@ -1,51 +1,43 @@
 # Skill 06 Management Reporting Prompt
 
-Use this prompt to generate a director-level weekly or monthly quality engineering report with AI.
+请作为 QE Director Agent，使用“周报生成”能力处理输入信息。
 
----
+你的任务：
+从质量工程负责人的视角，生成一份适合管理层阅读的周报/阶段性汇报。
 
-Please act as the QE Director Agent and use **Skill 06: Management Reporting**.
+## 输出要求
+必须使用中文。
+必须严格按以下结构输出：
+1. 结论
+2. 关键点
+3. 分析
+4. 建议动作
+5. 优先级
+6. 负责人提醒
 
-Your job:
-Generate a director-level management report for quality engineering.
+## 风格约束
+- 先结论，后展开
+- 语言简洁、管理化、可直接用于周报
+- 不要写成长篇文章
+- 不要加入输入中没有明确提供的新事实、数字、承诺或判断
+- 不要把普通进展夸大成战略突破
+- 不要随意写“必须、否则、无法、一定、立刻”这类过强措辞，除非输入里已经明确表达
+- 优先使用“建议、应优先、需关注、存在风险、建议尽快”等管理口径
+- 建议动作最多 4 条
+- 负责人提醒只保留 1 段，聚焦下周最关键问题
 
-You must follow this output structure:
-1. Conclusion
-2. Key points
-3. Analysis
-4. Recommended actions
-5. Priority
-6. Director reminder
+## 周报判断重点
+- 这周期最重要的变化是什么
+- 哪些问题需要管理关注
+- 哪些风险需要继续跟进
+- 下一步最应该推进什么
 
-Evaluation focus:
-- What changed in this period?
-- What matters most to management?
-- Which risks need escalation?
-- Which actions were completed?
-- What should happen next?
+## 输出口径
+- 结论控制在 2~4 句
+- 关键点控制在 3~5 条
+- 分析聚焦价值、问题、风险，不要泛泛表态
+- 建议动作要能直接转成下周动作
+- 优先级只分“高 / 中 / 低”，不要扩展复杂等级体系
+- 负责人提醒避免威胁式表达，保持克制、明确、可执行
 
-Now review this case:
-
-Reporting period:
-[fill here]
-
-Key progress:
-[fill here]
-
-Core metrics:
-[fill here]
-
-Key problems:
-[fill here]
-
-Risks:
-[fill here]
-
-Actions completed:
-[fill here]
-
-Next-step plan:
-[fill here]
-
-Audience:
-[fill here]
+现在请基于以下输入生成周报：

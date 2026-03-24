@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>{{ skill.label }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#0b1020; color:#eef2ff; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 72px; }
+    a { color:#8fb0ff; text-decoration:none; }
+    .back { display:inline-block; margin-bottom:18px; }
+    .panel { background:#121933; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:28px; }
+    h1 { margin:0 0 8px; font-size:32px; }
+    p { color:#a8b3cf; line-height:1.7; }
+    form { margin-top:24px; display:grid; gap:20px; }
+    .group {
+      border:1px solid rgba(255,255,255,.08);
+      background:#0f1630;
+      border-radius:18px;
+      padding:18px;
+    }
+    .group-title {
+      font-size:14px;
+      font-weight:700;
+      color:#8fb0ff;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin-bottom:14px;
+    }
+    .field { margin-bottom:14px; }
+    .field:last-child { margin-bottom:0; }
+    label { display:block; font-weight:600; margin-bottom:8px; }
+    input, textarea {
+      width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:#111a38; color:#eef2ff; padding:14px 16px; font:inherit;
+    }
+    textarea { min-height:120px; resize:vertical; }
+    button {
+      margin-top:8px; border:0; border-radius:14px; padding:14px 18px;
+      background:#5d84ff; color:white; font-weight:700; cursor:pointer;
+    }
+    button:hover { background:#4d74ef; }
+    button:disabled { background:#4b5b8f; cursor:not-allowed; opacity:.85; }
+    .running {
+      display:none; margin-top:8px; padding:14px 16px; border-radius:14px;
+      background:rgba(93,132,255,.12); border:1px solid rgba(93,132,255,.35);
+      color:#dfe7ff; font-weight:600;
+    }
+    .hint { font-size:13px; color:#8fa1c7; margin-top:4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">← 返回首页</a>
+    <div class="panel">
+      <h1>{{ skill.label }}</h1>
+      <p>填写版本关键信息，生成质量门结论、风险与建议动作。</p>
+
+      <form id="qualityGateForm" method="post" action="/run/quality_gate">
+        <div class="group">
+          <div class="group-title">基本信息</div>
+          <div class="field">
+            <label>Case 名称</label>
+            <input name="case_name" value="web_quality_gate_001" required>
+          </div>
+          <div class="field">
+            <label>项目名称</label>
+            <input name="project_name" value="AI Assistant Web" required>
+          </div>
+          <div class="field">
+            <label>版本名称</label>
+            <input name="release_name" value="v1.2.0" required>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">变更信息</div>
+          <div class="field">
+            <label>变更范围</label>
+            <textarea name="change_scope" required>- 新增会话置顶功能
+- 优化消息重试逻辑
+- 调整登录态失效后的跳转流程
+- 重构通知发送模块部分代码</textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">风险与验证</div>
+          <div class="field">
+            <label>高风险问题</label>
+            <textarea name="open_high_risk_issues" required>- 通知发送成功率监控未完成最终验证
+- 登录态失效场景边界覆盖不足
+- 2 个 P2 缺陷未关闭，但已评估不阻塞上线</textarea>
+          </div>
+          <div class="field">
+            <label>回归结果</label>
+            <textarea name="regression_result" required>- 主流程回归通过
+- 未发现 P0/P1 阻塞问题
+- 核心功能可用
+- 边界场景回归不充分</textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">上线保障</div>
+          <div class="field">
+            <label>监控与回滚准备</label>
+            <textarea name="monitoring_and_rollback_readiness" required>- 核心 API 监控已就绪
+- 登录异常率看板已配置
+- 通知成功率监控待最终确认
+- 应用可快速回滚，数据库无结构变更，无需 DB 回滚</textarea>
+            <div class="hint">点击运行后会调用模型，通常需要几秒钟。</div>
+          </div>
+        </div>
+
+        <button id="runButton" type="submit">生成发版评审结果</button>
+        <div id="runningBox" class="running">正在生成发版评审结果，请稍候...</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('qualityGateForm');
+    const button = document.getElementById('runButton');
+    const runningBox = document.getElementById('runningBox');
+
+    form.addEventListener('submit', function () {
+      button.disabled = true;
+      button.textContent = '生成中...';
+      runningBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

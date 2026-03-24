@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>{{ skill.label }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#0b1020; color:#eef2ff; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 72px; }
+    a { color:#8fb0ff; text-decoration:none; }
+    .back { display:inline-block; margin-bottom:18px; }
+    .panel { background:#121933; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:28px; }
+    h1 { margin:0 0 8px; font-size:32px; }
+    p { color:#a8b3cf; line-height:1.7; }
+    form { margin-top:24px; display:grid; gap:20px; }
+    .group { border:1px solid rgba(255,255,255,.08); background:#0f1630; border-radius:18px; padding:18px; }
+    .group-title { font-size:14px; font-weight:700; color:#8fb0ff; text-transform:uppercase; letter-spacing:.04em; margin-bottom:14px; }
+    .field { margin-bottom:14px; }
+    .field:last-child { margin-bottom:0; }
+    label { display:block; font-weight:600; margin-bottom:8px; }
+    input, textarea {
+      width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:#111a38; color:#eef2ff; padding:14px 16px; font:inherit;
+    }
+    textarea { min-height:110px; resize:vertical; }
+    button { margin-top:8px; border:0; border-radius:14px; padding:14px 18px; background:#5d84ff; color:white; font-weight:700; cursor:pointer; }
+    button:hover { background:#4d74ef; }
+    button:disabled { background:#4b5b8f; cursor:not-allowed; opacity:.85; }
+    .running {
+      display:none; margin-top:8px; padding:14px 16px; border-radius:14px;
+      background:rgba(93,132,255,.12); border:1px solid rgba(93,132,255,.35);
+      color:#dfe7ff; font-weight:600;
+    }
+    .hint { font-size:13px; color:#8fa1c7; margin-top:4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">← 返回首页</a>
+    <div class="panel">
+      <h1>{{ skill.label }}</h1>
+      <p>填写本周关键进展、问题和风险，生成质量负责人视角周报。</p>
+
+      <form id="weeklyReportForm" method="post" action="/run/weekly_report">
+        <div class="group">
+          <div class="group-title">基本信息</div>
+          <div class="field">
+            <label>Case 名称</label>
+            <input name="case_name" value="web_weekly_report_001" required>
+          </div>
+          <div class="field">
+            <label>周期</label>
+            <input name="reporting_period" value="2026-03-17 to 2026-03-23" required>
+          </div>
+          <div class="field">
+            <label>汇报对象</label>
+            <input name="audience" value="Quality Engineering Director / Management" required>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">进展与指标</div>
+          <div class="field">
+            <label>本周进展</label>
+            <textarea name="key_progress" required>- QE Director Agent MVP 完成 Phase 1
+- quality_gate Web 链路已跑通
+- 质量门、周报、事故、AI 雷达 CLI 能运行</textarea>
+          </div>
+          <div class="field">
+            <label>核心指标</label>
+            <textarea name="core_metrics" required>- 可运行 skill：5
+- 已跑通 Web skill：1
+- 已完成真实质量门案例：1</textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">问题与风险</div>
+          <div class="field">
+            <label>关键问题</label>
+            <textarea name="key_problems" required>- 真实案例覆盖还不够
+- Web 目前只跑通 quality_gate
+- 输出口径仍需继续收敛</textarea>
+          </div>
+          <div class="field">
+            <label>风险</label>
+            <textarea name="risks" required>- 如果不进入真实周节奏，Agent 可能停留在演示层
+- 团队尚未开始共用
+- 当前价值主要集中在负责人本人</textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">动作与计划</div>
+          <div class="field">
+            <label>已完成动作</label>
+            <textarea name="actions_completed" required>- 完成 Kimi 接入
+- 完成 CLI 工具链
+- 完成 quality_gate Web MVP</textarea>
+          </div>
+          <div class="field">
+            <label>下阶段计划</label>
+            <textarea name="next_step_plan" required>- 跑通 weekly_report Web 链路
+- 引入真实周报案例
+- 继续优化输出口径</textarea>
+            <div class="hint">点击生成后会调用模型，通常需要几秒钟。</div>
+          </div>
+        </div>
+
+        <button id="runButton" type="submit">生成周报结果</button>
+        <div id="runningBox" class="running">正在生成周报，请稍候...</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('weeklyReportForm');
+    const button = document.getElementById('runButton');
+    const runningBox = document.getElementById('runningBox');
+
+    form.addEventListener('submit', function () {
+      button.disabled = true;
+      button.textContent = '生成中...';
+      runningBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

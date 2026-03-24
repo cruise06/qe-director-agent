@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ skill.label }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0b1020;
+      color: #eef2ff;
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+    }
+    a { color: #8fb0ff; text-decoration: none; }
+    .back { display: inline-block; margin-bottom: 18px; }
+    .panel {
+      background: #121933;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px;
+    }
+    .key {
+      color: #8fb0ff;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+    p {
+      color: #a8b3cf;
+      line-height: 1.7;
+    }
+    .placeholder {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      color: #d7def5;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">← Back</a>
+    <div class="panel">
+      <div class="key">{{ skill.key }}</div>
+      <h1>{{ skill.label }}</h1>
+      <p>{{ skill.desc }}</p>
+      <div class="placeholder">
+        This skill page is connected. Next we will replace this placeholder with a real input form and execution button.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

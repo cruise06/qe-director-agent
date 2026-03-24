@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>反馈汇总</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#0b1020; color:#eef2ff; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 72px; }
+    a { color:#8fb0ff; text-decoration:none; }
+    .panel { background:#121933; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:28px; }
+    .card { background:#0f1630; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; margin-top:16px; }
+    .muted { color:#8fa1c7; }
+    ul { margin:8px 0 0; padding-left:18px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <h1>反馈汇总</h1>
+      <div class="muted">总反馈数：{{ total }}</div>
+      <div style="margin:12px 0 18px;">
+        <a href="/">返回首页</a> ·
+        <a href="/feedback/list">查看列表</a>
+      </div>
+
+      {% if summary %}
+        {% for item in summary %}
+        <div class="card">
+          <h2 style="margin:0 0 8px;">{{ item.skill }}</h2>
+          <div class="muted">反馈数：{{ item.count }}</div>
+          <div style="margin-top:10px;">
+            <strong>评级分布：</strong>
+            A={{ item.ratings.get('A', 0) }},
+            B={{ item.ratings.get('B', 0) }},
+            C={{ item.ratings.get('C', 0) }},
+            D={{ item.ratings.get('D', 0) }}
+          </div>
+          <div style="margin-top:10px;">
+            <strong>高频问题：</strong>
+            <ul>
+              {% for issue, count in item.top_issues %}
+              <li>{{ issue }}（{{ count }}）</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div>暂无反馈汇总</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

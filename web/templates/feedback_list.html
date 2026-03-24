@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>反馈列表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#0b1020; color:#eef2ff; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 72px; }
+    a { color:#8fb0ff; text-decoration:none; }
+    .panel { background:#121933; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:28px; }
+    .row { padding:16px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+    .row:last-child { border-bottom:none; }
+    .meta { color:#8fa1c7; font-size:13px; margin-bottom:6px; }
+    .main { font-weight:700; margin-bottom:6px; }
+    .sub { color:#dbe4ff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <h1>反馈列表</h1>
+      <div style="margin-bottom:18px;">
+        <a href="/">返回首页</a> ·
+        <a href="/feedback/summary">查看汇总</a>
+      </div>
+      {% if rows %}
+        {% for row in rows %}
+        <div class="row">
+          <div class="meta">{{ row.timestamp }} · {{ row.skill }} · {{ row.case_name }}</div>
+          <div class="main">评级：{{ row.rating }} ｜ 问题类型：{{ row.issue_type }}</div>
+          <div class="sub">建议：{{ row.suggestion or "（空）" }}</div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div>暂无反馈</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

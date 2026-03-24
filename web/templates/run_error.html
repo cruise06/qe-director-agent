@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#0b1020; color:#eef2ff; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 72px; }
+    a { color:#8fb0ff; text-decoration:none; }
+    .panel { background:#121933; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:28px; }
+    .title { font-size:30px; margin:0 0 12px; }
+    .msg { color:#dce5ff; line-height:1.8; margin-bottom:12px; }
+    .detail { color:#9fb0d7; background:#0f1630; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px 16px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="title">{{ title }}</div>
+      <div class="msg">{{ message }}</div>
+      {% if detail %}
+      <div class="detail">{{ detail }}</div>
+      {% endif %}
+      <div style="margin-top:18px;"><a href="/">返回首页</a></div>
+    </div>
+  </div>
+</body>
+</html>
