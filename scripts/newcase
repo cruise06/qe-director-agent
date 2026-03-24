@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+if [ "$#" -ne 2 ]; then
+  echo "Usage: ./scripts/newcase <skill> <case_name>"
+  echo "Skills: quality_gate | pilot_diagnosis | incident_review | weekly_report | ai_radar"
+  exit 1
+fi
+
+SKILL="$1"
+CASE_NAME="$2"
+
+case "$SKILL" in
+  quality_gate)
+    TEMPLATE="06_inputs/sample_quality_gate_input.md"
+    ;;
+  pilot_diagnosis)
+    TEMPLATE="06_inputs/sample_pilot_input.md"
+    ;;
+  incident_review)
+    TEMPLATE="06_inputs/sample_incident_input.md"
+    ;;
+  weekly_report)
+    TEMPLATE="06_inputs/sample_report_input.md"
+    ;;
+  ai_radar)
+    TEMPLATE="06_inputs/sample_ai_radar_input.md"
+    ;;
+  *)
+    echo "Unknown skill: $SKILL"
+    exit 1
+    ;;
+esac
+
+TARGET="06_inputs/${CASE_NAME}.md"
+cp "$TEMPLATE" "$TARGET"
+echo "CREATED: $TARGET"
